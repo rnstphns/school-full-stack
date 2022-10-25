@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require('cors')
 const db_string = "mongodb://localhost:27017";
 const connection = mongoose.connect(db_string, {
   useNewUrlParser: true,
@@ -9,6 +10,7 @@ const connection = mongoose.connect(db_string, {
 const schoolRouter = require("./routers/schoolRouter");
 const PORT = 3000;
 
+app.use(cors())
 app.use("/schools", schoolRouter);
 
 app.all("*", (req, res, next) => {
