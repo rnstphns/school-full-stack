@@ -1,0 +1,30 @@
+{
+  "name": "MIU",
+  "teachers": [
+    { "name": "Asaad", "department": "Computer Science" },
+    { "name": "Umur", "department": "Computer Science" }
+  ],
+  "courses": [
+    {
+      "title": "Modern Web Applicatons",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "title": "Big Data",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "title": "Software Architecture",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+##EDITED FROM HOMEWORK 6##
+DELETE http://localhost:3000/clear HTTP/1.1
+
+###
+POST http://localhost:3000/fill HTTP/1.1
+content-type: application/json
+
+{
+  "name": "MIU",
+  "teachers": [
+    { "name": "Asaad", "department": "Computer Science" },
+    { "name": "Umur", "department": "Computer Science" }
+  ],
+  "courses": [
+    {
+      "title": "Modern Web Applicatons",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "title": "Big Data",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "title": "Software Architecture",
+      "students": [
+        { "name": "John", "degree": "undergraduate" },
+        { "name": "Selin", "degree": "undergraduate" }
+      ]
+    }
+  ]
+}
+###
+GET http://localhost:3000
+
+###
+POST http://localhost:3000/schools/1/teachers HTTP/1.1
+content-type: application/json
+
+{  "name": "Keith", "degree":"graduate" } 
+###
+
+PATCH http://localhost:3000/schools/1/teachers/3 HTTP/1.1
+content-type: application/json
+
+{ "name": "Beith Levi" } 
+
+###
+DELETE http://localhost:3000/schools/1/teachers/2 HTTP/1.1
+
+###
+POST http://localhost:3000/schools/1/courses/2 HTTP/1.1
+content-type: application/json
+
+{ "name": "Fathi", "degree": "graduate" } 
+###
+
+PATCH http://localhost:3000/schools/1/courses/2/students/3 HTTP/1.1
+content-type: application/json
+
+{ "name": "Fathi Aswad" } 
+
+###
+DELETE http://localhost:3000/schools/1/courses/2/students/3 HTTP/1.1
