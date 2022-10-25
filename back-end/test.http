@@ -1,69 +1,84 @@
-##EDITED FROM HOMEWORK 6##
-DELETE http://localhost:3000/clear HTTP/1.1
 
+GET http://localhost:3000/schools/all
 ###
-POST http://localhost:3000/fill HTTP/1.1
+GET http://localhost:3000/schools/MIU
+###
+GET http://localhost:3000/schools/MIU/courses
+###
+GET http://localhost:3000/schools/MIU/courses/CS123
+###
+GET http://localhost:3000/schools/MIU/teachers
+###
+GET http://localhost:3000/schools/MIU/students
+###
+POST http://localhost:3000/schools/MIU/teachers/new 
 content-type: application/json
 
-{
-  "name": "MIU",
-  "teachers": [
-    { "name": "Asaad", "department": "Computer Science" },
-    { "name": "Umur", "department": "Computer Science" }
-  ],
-  "courses": [
-    {
-      "title": "Modern Web Applicatons",
-      "students": [
-        { "name": "John", "degree": "undergraduate" },
-        { "name": "Selin", "degree": "undergraduate" }
-      ]
-    },
-    {
-      "title": "Big Data",
-      "students": [
-        { "name": "John", "degree": "undergraduate" },
-        { "name": "Selin", "degree": "undergraduate" }
-      ]
-    },
-    {
-      "title": "Software Architecture",
-      "students": [
-        { "name": "John", "degree": "undergraduate" },
-        { "name": "Selin", "degree": "undergraduate" }
-      ]
-    }
-  ]
-}
+{ "id": "321", "name": "Keith", "department": "Art" } 
 ###
-GET http://localhost:3000
-
+DELETE  http://localhost:3000/schools/MIU/teachers/321
 ###
-POST http://localhost:3000/schools/1/teachers HTTP/1.1
-content-type: application/json
-
-{  "name": "Keith", "degree":"graduate" } 
-###
-
-PATCH http://localhost:3000/schools/1/teachers/3 HTTP/1.1
+PATCH http://localhost:3000/schools/MIU/teachers/321
 content-type: application/json
 
 { "name": "Beith Levi" } 
 
 ###
-DELETE http://localhost:3000/schools/1/teachers/2 HTTP/1.1
-
-###
-POST http://localhost:3000/schools/1/courses/2 HTTP/1.1
+POST http://localhost:3000/schools/MIU/courses/CS123
 content-type: application/json
 
-{ "name": "Fathi", "degree": "graduate" } 
+{ "id": "333", "name": "Fathi", "degree": "graduate" } 
 ###
 
-PATCH http://localhost:3000/schools/1/courses/2/students/3 HTTP/1.1
+PATCH http://localhost:3000/schools/MIU/students
 content-type: application/json
 
-{ "name": "Fathi Aswad" } 
+{ "name": "Fathi Aswad" }
 
 ###
-DELETE http://localhost:3000/schools/1/courses/2/students/3 HTTP/1.1
+DELETE http://localhost:3000/schools/1/courses/2/students/3 
+
+#####################################################################
+#####################INITIALIZE/CLEAR DATABASE#######################
+#####################################################################
+POST http://localhost:3000/schools/fill HTTP/1.1
+content-type: application/json
+
+[{
+  "name": "MIU",
+  "teachers": [
+    { "id": "123", "name": "Asaad", "department": "Computer Science" },
+    { "id": "456", "name": "Umur", "department": "Computer Science" }
+  ],
+  "courses": [
+    {
+      "id": "CS123",
+      "title": "Modern Web Applicatons",
+      "students": [
+        { "id": "111", "name": "John", "degree": "undergraduate" },
+        { "id": "222", "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "id": "CS456",
+      "title": "Big Data",
+      "students": [
+        { "id": "111", "name": "John", "degree": "undergraduate" },
+        { "id": "222", "name": "Selin", "degree": "undergraduate" }
+      ]
+    },
+    {
+      "id": "CS789",
+      "title": "Software Architecture",
+      "students": [
+        { "id": "111", "name": "John", "degree": "undergraduate" },
+        { "id": "222", "name": "Selin", "degree": "undergraduate" }
+      ]
+    }
+  ]
+}]
+###
+
+DELETE http://localhost:3000/schools/clear HTTP/1.1
+
+###
