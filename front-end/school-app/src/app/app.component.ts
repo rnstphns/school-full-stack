@@ -1,28 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { SchooldbService } from './schooldb.service';
 
 @Component({
   selector: 'app-root',
   template: `
-    <div style="text-align:center" class="content">
+    <header>
+      login header will go here
+    </header>
+    <div style="text-align:center">
       <h1>
         Welcome to {{title}}!
       </h1>
-      <textarea [defaultValue]="this.populated" ></textarea>
-    </div>    
+       <app-school-details></app-school-details>
+
+    </div>     
   `,
   styles: []
 })
-export class AppComponent implements OnInit{
-  title = 'school-app';
-  populated: Array<any>;
-  constructor(private service: SchooldbService) {
-    this.populated = []
-   }
+export class AppComponent implements OnInit {
+  title = 'The School App';
 
-  ngOnInit(){
-    this.populated = this.service.getSchools()
+  constructor() {
+
   }
 
+  ngOnInit() {
+
+  }
 
 }

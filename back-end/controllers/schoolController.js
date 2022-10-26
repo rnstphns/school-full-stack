@@ -18,7 +18,7 @@ module.exports.fillSchools = async (req, res, next) => {
 };
 module.exports.getSchools = async (req, res, next) => {
   try {
-    console.log(`recieved request for all schools`)
+    console.log(`recieved request for all schools`);
     const result = await School.find({});
     res.json(result);
   } catch (error) {
@@ -28,7 +28,7 @@ module.exports.getSchools = async (req, res, next) => {
 module.exports.getSchoolByName = async (req, res, next) => {
   try {
     const { school_name } = req.params; //TODO case handling needed in client (or middleware)
-    console.log(`recieved request for ${school_name}`)
+    console.log(`recieved request for ${school_name}`);
     const result = await School.find({ name: school_name });
     res.json(result);
   } catch (error) {
@@ -170,8 +170,8 @@ module.exports.dropStudentFromCourse = async (req, res, next) => {
   try {
     const { school_name, course_id, student_id } = req.params;
     const result = await School.updateOne(
-      { name: school_name, "courses.id" : course_id },
-      { $pull: {"courses.$.students": {id: student_id}} }
+      { name: school_name, "courses.id": course_id },
+      { $pull: { "courses.$.students": { id: student_id } } }
     );
     res.json(result);
   } catch (error) {
