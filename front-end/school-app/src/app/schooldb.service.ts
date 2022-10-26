@@ -5,18 +5,22 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SchooldbService {
-  baseUrl: string = 'http://localhost:3000/'
-  response: any;
+  baseUrl: string = 'http://localhost:3000/schools/'
   schoolList!: School[];
 
   constructor(private http: HttpClient) { }
-  
-  getSchools() {
-    this.http.get(`${this.baseUrl}all`).subscribe( res => {
-      console.log(res)
-      this.response = res
-      this.schoolList = this.response
+
+  getSchools(): Array<School> {
+    this.http.get(`${this.baseUrl}all`).subscribe(res => {
+      try {
+        this.schoolList = JSON.parse(JSON.stringify(res));
+      }
+      catch (err) {
+        console.error(err)
+      }
+      console.log(this.schoolList)
     })
+    return this.schoolList
   }
 
 }
@@ -26,8 +30,8 @@ class School {
   teachers!: Array<Teacher>
   courses!: Array<Course>
 }
-class Teacher{
-  id!: string
+class Teacher {
+  id!: number
   name!: string
   department!: string
 }

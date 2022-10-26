@@ -8,21 +8,21 @@ import { SchooldbService } from './schooldb.service';
       <h1>
         Welcome to {{title}}!
       </h1>
-      <textarea [defaultValue]="this.populated || 'nothing found'" ></textarea>
+      <textarea [defaultValue]="this.populated" ></textarea>
     </div>    
   `,
   styles: []
 })
 export class AppComponent implements OnInit{
   title = 'school-app';
-  populated: any;
-  constructor(private service: SchooldbService) { }
+  populated: Array<any>;
+  constructor(private service: SchooldbService) {
+    this.populated = []
+   }
 
   ngOnInit(){
-    this.populated = this.populate()
+    this.populated = this.service.getSchools()
   }
 
-  populate() {
-    return this.service.getSchools()
-  }
+
 }
