@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgIterable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -10,12 +10,16 @@ export class SchooldbService {
 
   constructor(private http: HttpClient) { }
 
-  getSchools(): Observable<School[]> {
+  getSchools(): Observable<School[]> { //Not currently used
     return this.http.get<School[]>(`${this.baseUrl}all`)
   }
 
-  getSchoolDetails(school_name: string): Observable<School> {
-    return this.http.get<School>(`${this.baseUrl}${school_name}`)
+  getSchoolDetails(school_name: string): Observable<School[]> {
+    return this.http.get<School[]>(`${this.baseUrl}${school_name}`)
+  }
+
+  deleteTeacher(school_name: string, teacher_id: number): Observable<mongoResponse> {
+    return this.http.delete<mongoResponse>(`${this.baseUrl}${school_name}/teachers/${teacher_id}`)
   }
 
 }
@@ -25,19 +29,26 @@ export interface School {
   teachers?: Array<Teacher>
   courses?: Array<Course>
 }
-interface Teacher {
+export interface Teacher {
   id: number
   name: string
   department?: string
 }
-interface Course {
+export interface Course {
   id: string
   title: string
   students?: Array<Student>
 }
-interface Student {
+export interface Student {
   id: number
   name: string
   department?: string
   grade?: number
+}
+export interface mongoResponse {
+  acknowledged: boolean,
+  modifiedCount: number,
+  upsertedId: any,
+  upsertedCount: number,
+  matchedCount: number
 }

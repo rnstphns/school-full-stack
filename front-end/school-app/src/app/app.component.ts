@@ -6,18 +6,18 @@ import { Component, OnInit } from '@angular/core';
     <header>
       login header will go here
     </header>
-    <div style="text-align:center">
+    <div class = "content">
       <h1>
-        Welcome to {{title}}!
+        {{title}}!
       </h1>
        <app-school-details></app-school-details>
 
     </div>     
   `,
-  styles: []
+  styleUrls: ['../styles.css']
 })
 export class AppComponent implements OnInit {
-  title = 'The School App';
+  title = 'Good Luck on the Final!';
 
   constructor() {
 

@@ -68,6 +68,7 @@ module.exports.newTeacher = async (req, res, next) => {
   try {
     const { school_name } = req.params;
     const new_teacher = req.body;
+    console.log(`recieved request to add ${new_teacher.name} to ${school_name} teachers`)
     const result = await School.updateOne(
       { name: school_name },
       { $push: { teachers: new_teacher } }
@@ -80,6 +81,7 @@ module.exports.newTeacher = async (req, res, next) => {
 module.exports.deleteTeacher = async (req, res, next) => {
   try {
     const { school_name, teacher_id } = req.params;
+    console.log(`recieved request to delete teacher ${teacher_id} from ${school_name}`)
     const result = await School.updateOne(
       { name: school_name },
       { $pull: { teachers: { id: teacher_id } } }
