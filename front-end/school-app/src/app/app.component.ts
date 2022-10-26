@@ -6,13 +6,9 @@ import { Component, OnInit } from '@angular/core';
     <header>
       <app-login></app-login>
     </header>
-    <div class = "content">
-      <h1>
-        {{title}}!
-      </h1>
-       <app-school-details></app-school-details>
-
-    </div>     
+    <div class="content">
+      <app-school-details></app-school-details>
+    </div>
   `,
   styleUrls: ['../styles.css']
 })

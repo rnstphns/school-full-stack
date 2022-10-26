@@ -29,7 +29,21 @@ td, tr, thead {
 h1{
     font-family: serif;
 }
-button{
+input, button{
     padding: 5px;
-    margin:auto; 
+    margin: 3px;
 }
+.header-bar{
+    display: flex;
+    justify-content: space-between;
+}
+.welcome-message{
+    display: flex; 
+    justify-content: left;
+    padding: 5px;
+}
+.login-bars{
+    display: flex;
+    justify-content:flex-end;
+}
+
