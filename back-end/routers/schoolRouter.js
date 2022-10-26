@@ -14,6 +14,8 @@ const {
   updateStudent,
   getStudents,
   getCourseDetails,
+  updateGrade,
+  dropStudentFromCourse,
 } = require("../controllers/schoolController");
 
 router.post("/fill", express.json(), fillSchools);
@@ -29,5 +31,7 @@ router.delete("/:school_name/teachers/:teacher_id", deleteTeacher);
 router.patch("/:school_name/teachers/:teacher_id", express.json(), updateTeacherName);
 router.post("/:school_name/courses/:course_id", express.json(), addStudentToCourse);
 router.patch("/:school_name/students", express.json(), updateStudent);
+router.patch("/:school_name/courses/:course_id/students/:student_id", express.json(), updateGrade)
+router.delete("/:school_name/courses/:course_id/students/:student_id", dropStudentFromCourse)
 
 module.exports = router;

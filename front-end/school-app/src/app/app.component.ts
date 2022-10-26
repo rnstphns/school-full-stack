@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SchooldbService } from './schooldb.service';
 
 @Component({
   selector: 'app-root',
@@ -29,4 +30,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'school-app';
+  constructor(private service : SchooldbService){
+    this.service = new SchooldbService()
+  }
 }

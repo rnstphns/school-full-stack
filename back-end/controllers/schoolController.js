@@ -116,11 +116,21 @@ module.exports.getStudents = async (req, res, next) => {
   try {
     const { school_name } = req.params;
     const result = await School.find(
-      { name: school_name },
-      //TODO is this possible with aggregation framework? $unwind? 
+      { name: school_name }
+      //TODO is this possible with aggregation framework? $unwind?
       //get a group by id of students: [{111, John}, {222, Selin} ...]
       //to update them everywhere in a document
     );
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.updateStudent = async (req, res, next) => {
+  try {
+    const { school_name } = req.params;
+    const { name, degree } = req.body;
+    const result = await School.find; //TODO how to update student everywhere by id?
     res.json(result);
   } catch (error) {
     next(error);
@@ -139,11 +149,28 @@ module.exports.addStudentToCourse = async (req, res, next) => {
     next(error);
   }
 };
-module.exports.updateStudent = async (req, res, next) => {
+module.exports.updateGrade = async (req, res, next) => {
   try {
-    const { school_name } = req.params;
-    const { name, degree } = req.body;
-    const result = await School.find;
+    const { school_name, course_id, student_id } = req.params;
+    const grade = req.body.grade;
+    const result = await School.updateOne(
+      { name: school_name },
+      { $set: { "courses.$[c].students.$[s].grade": grade } },
+      { arrayFilters: [{ "c.id": course_id }, { "s.id": student_id }] }
+    );
+
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.dropStudentFromCourse = async (req, res, next) => {
+  try {
+    const { school_name, course_id, student_id } = req.params;
+    const result = await School.updateOne(
+      { name: school_name, "courses.id" : course_id },
+      { $pull: {"courses.$.students": {id: student_id}} }
+    );
     res.json(result);
   } catch (error) {
     next(error);
