@@ -7,7 +7,7 @@ import { SchooldbService, School } from './schooldb.service';
     <input  placeholder = 'Search By School Initials' #searchInput>
     <button (click)="getSchool(searchInput.value)">Get School Data</button>
     <div textAlign = 'center'>
-        <!-- <span>{{this.school_details.name ||'search for school'}} - {{this.school_details.teachers}} - {{this.school_details.courses}}</span> -->
+        <span>{{school_details.name}} - {{school_details.teachers}} - {{school_details.courses}}</span>
     </div>
   `,
   styles: [
@@ -15,15 +15,23 @@ import { SchooldbService, School } from './schooldb.service';
 })
 export class SchoolDetailsComponent implements OnInit {
 
-  school_details! : School;
+  school_details!: School;
 
   constructor(private service: SchooldbService) { }
 
-  ngOnInit(): void { this.service.getSchools()}
+  ngOnInit(): void { }
 
   getSchool(school_name: string) {
-    const valid_name = school_name.toUpperCase().slice(0,3) //Backend takes 3 letter acronyms
-    this.school_details = this.service.getSchoolDetails(valid_name)
+    const valid_name = school_name.toUpperCase().slice(0, 3) //Backend takes 3 letter acronyms
+    this.service.getSchoolDetails(valid_name).subscribe(
+      school => {
+        this.school_details = school
+        // console.log(this.school_details)
+      }
+    )
+
   }
+
+  //delete .filter() array
 
 }

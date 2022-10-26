@@ -8,47 +8,36 @@ import { Observable } from 'rxjs';
 export class SchooldbService {
   baseUrl: string = 'http://localhost:3000/schools/'
 
-  schoolList!: School[];
-  currentSchool!: School;
-
   constructor(private http: HttpClient) { }
 
-  getSchools(): School[] {
-    this.http.get(`${this.baseUrl}all`)
-    .subscribe((res) => {
-      console.log(res) 
-      this.schoolList = res
-    }) 
-    console.log(`All Schools loaded into service: ${this.schoolList}`)
-    return this.schoolList
+  getSchools(): Observable<School[]> {
+    return this.http.get<School[]>(`${this.baseUrl}all`)
   }
 
-  getSchoolDetails(school_name: string): School {
-    this.http.get<School>(`${this.baseUrl}${school_name}`)
-    .subscribe((school: School) => this.currentSchool = school)
-    console.log(this.currentSchool)
-    return this.currentSchool
+  getSchoolDetails(school_name: string): Observable<School> {
+    return this.http.get<School>(`${this.baseUrl}${school_name}`)
   }
 
 }
 
-export class School {
-  name!: string
-  teachers!: Array<Teacher>
-  courses!: Array<Course>
+export interface School {
+  name: string
+  teachers?: Array<Teacher>
+  courses?: Array<Course>
 }
-class Teacher {
-  id!: number
-  name!: string
-  department!: string
+interface Teacher {
+  id: number
+  name: string
+  department?: string
 }
-class Course {
-  id!: string
-  title!: string
-  students!: Array<Student>
+interface Course {
+  id: string
+  title: string
+  students?: Array<Student>
 }
-class Student {
-  id!: number
-  name!: string
-  department!: string
+interface Student {
+  id: number
+  name: string
+  department?: string
+  grade?: number
 }

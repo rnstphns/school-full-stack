@@ -30,7 +30,7 @@ content-type: application/json
 { "id": "333", "name": "Fathi", "degree": "graduate" } 
 ###
 
-PATCH http://localhost:3000/schools/MIU/students
+PATCH http://localhost:3000/schools/MIU/students/333
 content-type: application/json
 
 { "name": "Fathi Aswad" }
@@ -40,7 +40,7 @@ content-type: application/json
 
 {"grade": "94"}
 ###
-DELETE http://localhost:3000/schools/MIU/courses/CS123/students/111
+DELETE http://localhost:3000/schools/MIU/courses/CS123/students/333
 
 #####################################################################
 #####################INITIALIZE/CLEAR DATABASE#######################

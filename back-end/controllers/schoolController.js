@@ -119,20 +119,31 @@ module.exports.getStudents = async (req, res, next) => {
     const { school_name } = req.params;
     const result = await School.find(
       { name: school_name }
-      //TODO is this possible with aggregation framework? $unwind?
-      //get a group by id of students: [{111, John}, {222, Selin} ...]
-      //to update them everywhere in a document
+      //possible with aggregation: spread courses, projection: couses.students
     );
     res.json(result);
   } catch (error) {
     next(error);
   }
 };
-module.exports.updateStudent = async (req, res, next) => {
+module.exports.updateStudent = async (req, res, next) => { //TODO, fix these filters
   try {
-    const { school_name } = req.params;
+    const { school_name, student_id } = req.params;
     const { name, degree } = req.body;
-    const result = await School.find; //TODO how to update student everywhere by id?
+    const result = await School.updateOne(
+      { name: school_name },
+      {
+        $set: {
+          "courses.$.[filterCourse].students.$.[filterStudent].name": name,
+        },
+      },
+      {
+        arrayFilters: [
+          { "filterCourse.courses": { "students.id": student_id } },
+          { "filterStudent.id": student_id },
+        ],
+      }
+    );
     res.json(result);
   } catch (error) {
     next(error);
@@ -160,7 +171,6 @@ module.exports.updateGrade = async (req, res, next) => {
       { $set: { "courses.$[c].students.$[s].grade": grade } },
       { arrayFilters: [{ "c.id": course_id }, { "s.id": student_id }] }
     );
-
     res.json(result);
   } catch (error) {
     next(error);
