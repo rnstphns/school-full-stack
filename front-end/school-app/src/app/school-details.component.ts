@@ -12,17 +12,19 @@ import { SchooldbService, School, Teacher, Course, Student, mongoResponse } from
         <label class="table-title">{{school_details.name || "school name missing"}}</label><br><br>
 
         <label class="teacher-label">Teachers:</label>
-        <button id="new-teacher-button"(click)="newTeacher(school_details.name)">New</button>
+        
         <table>
           <thead>
             <th>id</th>
             <th>Name</th>
             <th>Department</th>
+            <th><button id="new-teacher-button"(click)="newTeacher(school_details.name)">  New  </button></th>
           </thead>
           <tr *ngFor="let t of school_details.teachers">
             <td >{{t.id}}</td>
             <td>{{t.name}}</td>
             <td>{{t.department}}</td>
+            
             <!-- would be nice to add a tooltip on single click -->
             <td><button id="delete" (dblclick)="deleteTeacher(t.id)">Delete</button></td>
           </tr>
