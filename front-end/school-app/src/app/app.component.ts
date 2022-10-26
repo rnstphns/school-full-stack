@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-root',
   template: `
     <header>
-      login header will go here
+      <app-login></app-login>
     </header>
     <div class = "content">
       <h1>
