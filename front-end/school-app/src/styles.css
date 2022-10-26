@@ -13,6 +13,7 @@
 .teacher-label, .course-label, .-student-label{
     text-decoration: underline;
     padding: 5px;
+    text-align: center;
 }
 table{
     text-decoration:none;
