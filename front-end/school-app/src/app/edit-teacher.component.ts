@@ -31,6 +31,8 @@ export class EditTeacherComponent implements OnDestroy {
   id!: number;
   name!: string;
   department!: string;
+  school: string = 'MIU'; //TODO, put in query params
+  newTeachFlag: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private dbservice: SchooldbService) {
     this.teacherForm = formBuilder.group({
@@ -39,40 +41,48 @@ export class EditTeacherComponent implements OnDestroy {
       'department': ['', Validators.required]
     })
     this.queryparameters = this.activatedRoute.queryParams
-    .subscribe(params => {
-      this.id = params['id'];
-      this.name = params['name'];
-      this.department = params['department'];
-    })
+      .subscribe(params => {
+        this.id = params['id'];
+        this.name = params['name'];
+        this.department = params['department'];
+      })
     // console.log(`Query params: ${this.id} - ${this.name} - ${this.department}`)
     this.teacherForm.setValue({
       id: [this.id],
       name: [this.name],
       department: [this.department]
     })
+    if (this.id == undefined || this.name == undefined)
+      this.newTeachFlag = true
   }
 
   ngOnDestroy(): void {
     console.log(`destroying 'edit teachers'`)
     this.queryparameters.unsubscribe()
   }
-  submitEditTeacher(){
-      const id = this.pullFirst(this.teacherForm.value.id)
-      const name = this.pullFirst(this.teacherForm.value.name)
-      const department = this.pullFirst(this.teacherForm.value.department)
-      const teach = `{ "id": "${id}", "name": "${name}", "department": "${department}" }`
-      console.log(`submitting ${teach}`)
-      //TODO- check if new teacher => newTeacher() else updateTeacher()
-      //Submitting a new teacher breaks it right now
-      this.dbservice.editTeacher('MIU', id, teach).subscribe(res => console.log(res));
-      //TODO: update school-details local array
+  submitEditTeacher() {
+    const id = this.pullFirst(this.teacherForm.value.id)
+    const name = this.pullFirst(this.teacherForm.value.name)
+    const department = this.pullFirst(this.teacherForm.value.department)
+    if(id == "" || id == undefined || name == "" || name == undefined){
+      console.log('bad request')
+      return
+    }
+    const teach = JSON.parse(`{ "id": "${id}", "name": "${name}", "department": "${department}" }`)
+    if (this.newTeachFlag) {
+      this.dbservice.newTeacher(this.school, teach).subscribe(res => console.log("new" + res))
+    } else {
+      this.dbservice.editTeacher(this.school, id, teach).subscribe(res => console.log("edit" + res));
+    }
+    //TODO: update school-details local array
+    //redirect on submit?
   }
-  pullFirst(object: Object){
-    if(object instanceof Array) 
+  pullFirst(object: Object) {
+    if (object instanceof Array)
       return object[0]
-    else 
+    else
       return object
   }
 
-  
+
 }
