@@ -108,6 +108,7 @@ module.exports.updateTeacher = async (req, res, next) => {
   try {
     const { school_name, teacher_id } = req.params;
     const updated_teacher = req.body;
+    console.log(`recieved request to update teacher ${teacher_id} from ${school_name}`)
     const result = await School.updateOne(
       { name: school_name, "teachers.id": teacher_id },
       { $set: { "teachers.$": updated_teacher } }

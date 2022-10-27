@@ -1,6 +1,7 @@
 import { Injectable, NgIterable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { identifierName } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class SchooldbService {
     return this.http.delete<mongoResponse>(`${this.baseUrl}${school_name}/teachers/${teacher_id}`)
   }
 
-  editTeacher(school_name: string, teacher_id: number, body: Teacher): Observable<mongoResponse> {
+  editTeacher(school_name: string, teacher_id: number, body: string): Observable<mongoResponse> {
     return this.http.post<mongoResponse>(`${this.baseUrl}${school_name}/teachers/${teacher_id}`, body)
   }
 
