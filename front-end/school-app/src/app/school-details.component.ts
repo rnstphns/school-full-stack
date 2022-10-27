@@ -82,7 +82,7 @@ export class SchoolDetailsComponent implements OnInit {
   }
 
   newTeacher(school_name: string) {
-    console.log('TODO - build a new teacher page')
+    console.log('TODO - build a new teacher/edit teacher page')
   }
 
   viewStudentsInCourse(course_id: string) {

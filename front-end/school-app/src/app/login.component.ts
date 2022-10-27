@@ -11,18 +11,19 @@ import { LoginService } from './login.service';
         <div class="login-bars">
           <input type="text" placeholder="email">
           <input type="text" placeholder="password">
-          <button>Login</button>
+          <button (click)="login()">Login</button>
         </div>
       </div>
   `,
   styles: [
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent{
 
   constructor(private service: LoginService) { }
 
-  ngOnInit(): void {
+  login(){
+    console.log(`TODO: finish login logic`)
   }
 
 }
