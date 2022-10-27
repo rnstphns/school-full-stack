@@ -63,6 +63,7 @@ export class EditTeacherComponent implements OnDestroy {
       const teach = `{ "id": "${id}", "name": "${name}", "department": "${department}" }`
       console.log(`submitting ${teach}`)
       //TODO- check if new teacher => newTeacher() else updateTeacher()
+      //Submitting a new teacher breaks it right now
       this.dbservice.editTeacher('MIU', id, teach).subscribe(res => console.log(res));
       //TODO: update school-details local array
   }
