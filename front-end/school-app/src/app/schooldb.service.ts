@@ -22,6 +22,10 @@ export class SchooldbService {
     return this.http.delete<mongoResponse>(`${this.baseUrl}${school_name}/teachers/${teacher_id}`)
   }
 
+  editTeacher(school_name: string, teacher_id: number, body: Teacher): Observable<mongoResponse> {
+    return this.http.post<mongoResponse>(`${this.baseUrl}${school_name}/teachers/${teacher_id}`, body)
+  }
+
 }
 
 export interface School {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SchooldbService, School, Teacher, Course, Student, mongoResponse } from './schooldb.service';
 
 @Component({
@@ -19,7 +20,7 @@ import { SchooldbService, School, Teacher, Course, Student, mongoResponse } from
             <th>ID</th>
             <th>Name</th>
             <th>Department</th>
-            <th><button id="new-teacher-button"(click)="newTeacher(school_details.name)">  New  </button></th>
+            <th colspan="2"><button id="new-teacher-button" [routerLink]="['/', 'teachers']">  New  </button></th>
           </thead>
           <tr *ngFor="let t of school_details.teachers">
             <td>{{t.id}}</td>
@@ -27,7 +28,8 @@ import { SchooldbService, School, Teacher, Course, Student, mongoResponse } from
             <td>{{t.department}}</td>
             
             <!-- would be nice to add a tooltip on single click -->
-            <td><button id="delete" (dblclick)="deleteTeacher(t.id)">Delete</button></td>
+            <td><button id="delete" (click) = "doubleClickTip()" (dblclick)="deleteTeacher(t.id)">Delete</button></td>
+            <td><button id="edit" (click) = "doubleClickTip()"  (dblclick)="editTeacher(t.id)">Edit</button></td>
           </tr>
         </table><br>
         <label for="course-table" class="course-label">Courses:</label>
@@ -52,7 +54,7 @@ export class SchoolDetailsComponent implements OnInit {
 
   school_details!: School;
 
-  constructor(private service: SchooldbService) { }
+  constructor(private service: SchooldbService, private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -81,11 +83,17 @@ export class SchoolDetailsComponent implements OnInit {
     )
   }
 
-  newTeacher(school_name: string) {
-    console.log('TODO - build a new teacher/edit teacher page')
+  editTeacher(teacher_id: number) {
+    const teacher = this.school_details.teachers?.filter(t => (t.id == teacher_id))[0]
+    this.router.navigate(['/', 'teachers'], {queryParams: {id: teacher?.id, name: teacher?.name, department: teacher?.department}})
   }
 
   viewStudentsInCourse(course_id: string) {
     console.log('TODO - build redirect to student page')
   }
+
+  doubleClickTip(){
+    console.log(`TODO - tooltip that says: Are you sure?`)
+  }
 }
+

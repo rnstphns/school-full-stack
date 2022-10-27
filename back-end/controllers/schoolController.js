@@ -71,7 +71,7 @@ module.exports.newTeacher = async (req, res, next) => {
     console.log(`recieved request to add ${new_teacher.name} to ${school_name} teachers`)
     const result = await School.updateOne(
       { name: school_name },
-      { $push: { teachers: new_teacher } }
+      { $addToSet: { teachers: new_teacher } }
     );
     res.json(result);
   } catch (error) {
@@ -98,6 +98,19 @@ module.exports.updateTeacherName = async (req, res, next) => {
     const result = await School.updateOne(
       { name: school_name, "teachers.id": teacher_id },
       { $set: { "teachers.$.name": new_name } }
+    );
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.updateTeacher = async (req, res, next) => {
+  try {
+    const { school_name, teacher_id } = req.params;
+    const updated_teacher = req.body;
+    const result = await School.updateOne(
+      { name: school_name, "teachers.id": teacher_id },
+      { $set: { "teachers.$": updated_teacher } }
     );
     res.json(result);
   } catch (error) {

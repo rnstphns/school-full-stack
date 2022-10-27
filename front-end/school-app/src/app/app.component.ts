@@ -7,8 +7,9 @@ import { Component, OnInit } from '@angular/core';
       <app-login></app-login>
     </header>
     <div class="content">
-      <app-school-details></app-school-details>
+      <router-outlet></router-outlet>
     </div>
+    
   `,
   styleUrls: ['../styles.css']
 })

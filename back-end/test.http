@@ -16,6 +16,11 @@ content-type: application/json
 
 { "id": "321", "name": "Keith", "department": "Art" } 
 ###
+POST http://localhost:3000/schools/MIU/teachers/321
+content-type: application/json
+
+{ "id": "321", "name": "Beith", "department": "Art" } 
+###
 DELETE  http://localhost:3000/schools/MIU/teachers/321
 ###
 PATCH http://localhost:3000/schools/MIU/teachers/321

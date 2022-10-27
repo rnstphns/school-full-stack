@@ -46,4 +46,8 @@ input, button{
     display: flex;
     justify-content:flex-end;
 }
+.navbar{
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
