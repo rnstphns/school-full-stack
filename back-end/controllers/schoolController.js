@@ -35,18 +35,6 @@ module.exports.getSchoolByName = async (req, res, next) => {
     next(error);
   }
 };
-module.exports.getCourses = async (req, res, next) => {
-  try {
-    const { school_name } = req.params;
-    const result = await School.find(
-      { name: school_name },
-      { "courses.id": true, "courses.title": true, _id: false }
-    );
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-};
 module.exports.getTeachers = async (req, res, next) => {
   try {
     const { school_name } = req.params;
@@ -85,19 +73,6 @@ module.exports.deleteTeacher = async (req, res, next) => {
     const result = await School.updateOne(
       { name: school_name },
       { $pull: { teachers: { id: teacher_id } } }
-    );
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-};
-module.exports.updateTeacherName = async (req, res, next) => {
-  try {
-    const { school_name, teacher_id } = req.params;
-    const new_name = req.body.name;
-    const result = await School.updateOne(
-      { name: school_name, "teachers.id": teacher_id },
-      { $set: { "teachers.$.name": new_name } }
     );
     res.json(result);
   } catch (error) {
