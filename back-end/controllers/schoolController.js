@@ -18,11 +18,11 @@ module.exports.fillSchools = async (req, res, next) => {
 };
 module.exports.getSchools = async (req, res, next) => {
   try {
-    console.log(`recieved request for all schools`);
-    const result = await School.find({});
+    console.log(`recieved request for all schools`);        //Not currently used in backend
+    const result = await School.find({}).limit(5).skip(1); //TODO Add more sophisticated pagination. maybe just projection?
     res.json(result);
   } catch (error) {
-    next(error);
+    next(error); 
   }
 };
 module.exports.getSchoolByName = async (req, res, next) => {
