@@ -7,7 +7,7 @@ import { identifierName } from '@angular/compiler';
   providedIn: 'root'
 })
 export class SchooldbService {
-  baseUrl: string = 'http://localhost:3000/schools/'
+  baseUrl: string = '/schools/'
 
   constructor(private http: HttpClient) { }
 
